@@ -54,7 +54,7 @@ public class MetaTest {
 
     @Test
     public void testSetProperty() {
-        propertyService.setProperty("gg", "dd");
+        propertyService.setProperty("gg" + System.currentTimeMillis(), "dd");
     }
 
 }

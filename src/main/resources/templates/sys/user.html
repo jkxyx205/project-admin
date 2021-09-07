@@ -75,7 +75,11 @@
             url: '/users/list',
             // count: '/report/sale/client/list/count',
             // summaryIndex: summaryIndex,
-            // query: params,
+            query: {
+                page: 1,
+                sidx: "username",
+                sord: "asc"
+            },
             displayPage: function () {
                 if(/*[[${device.isNormal()}]]*/) {
                     return 15
