@@ -1,0 +1,50 @@
+spring:
+  profiles:
+    active: dev, dict
+  application:
+    name: project-admin
+  messages:
+    basename: static/i18n/messages #相对路径 开头请勿添加斜杠
+    useCodeAsDefaultMessage: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  mobile:
+    devicedelegatingviewresolver:
+      enabled: false # 必须开启才能使用devicedelegatingviewresolver功能
+      #     normalPrefix: normal/
+      mobilePrefix: mobile/
+      tabletPrefix: tablet/
+      enableFallback: true # 有问题
+    sitepreference: # 参数
+      enabled: false # 开启,可以指定参数
+  jpa:
+    hibernate:
+      ddl-auto: none
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+        enable_lazy_load_no_trans: true
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 100MB
+server:
+  port: 7000
+  servlet:
+    session:
+      timeout: 60m
+    context-path: /

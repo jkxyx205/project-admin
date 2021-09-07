@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      xmlns:sharp="">
+<head th:replace="includes/base :: common_header(~{},~{::link},~{::style})">
+    <link rel="stylesheet" th:href="@{/css/tab-common.css}">
+    <link rel="stylesheet" th:href="@{/plugins/multiple-select/multiple-select.min.css}">
+    <style>
+
+    </style>
+</head>
+<body class="app">
+<th:block th:replace="includes/base :: common_content(~{::div})">
+    <div class="container-fluid">
+        <div class="card">
+            <sharp:dict th:id="user" key="user" class="form-control" style="width:200px;" hideAllItem/>
+            <sharp:dict th:id="grade" multiple key="grade" class="form-control" style="width:200px;" hideAllItem/>
+            <sharp:dict th:id="sex" multiple key="sex" class="form-control" style="width:200px;"/>
+            <div class="card-header">用户信息</div>
+            <div class="card-body">
+                <div id="list">
+                    <ajax-table :grid="grid" :display-page="displayPage" class="list-table" row-key="ID" @refresh="refresh"
+                                @page-change="pageChange"
+                                @sort-column="sortColumn"
+                                @size-change="sizeChange">
+                        <table-column
+                                type="index"
+                                label="序号"
+                                width="72">
+                        </table-column>
+                        <table-column
+                                prop="username"
+                                label="用户名"
+                                width="120"
+                                sortable
+                                tooltip>
+                        </table-column>
+                        <table-column
+                                prop="name"
+                                label="姓名"
+                                width="120"
+                                sortable
+                                tooltip>
+                        </table-column>
+                        <table-column
+                                prop="status"
+                                label="状态"
+                                width="120"
+                                tooltip>
+                        </table-column>
+                    </ajax-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block th:replace="includes/base :: common_js(~{::script})">
+    <script th:src="@{/plugins/multiple-select/multiple-select.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.table.js}"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.ajaxTable.js}"></script>
+
+    <script th:inline="javascript">
+        $('#grade').multipleSelect({
+            selectAll: true,
+            single: false,
+            placeholder: '选择年龄'
+        })
+        $('#sex').multipleSelect({
+            selectAll: true,
+            single: false,
+            placeholder: '选择性别'
+        })
+
+        $('#list').ajaxTable({
+            url: '/users/list',
+            // count: '/report/sale/client/list/count',
+            // summaryIndex: summaryIndex,
+            // query: params,
+            displayPage: function () {
+                if(/*[[${device.isNormal()}]]*/) {
+                    return 15
+                } else if(/*[[${device.isTablet()}]]*/) {
+                    return 10
+                }
+                return 5
+            }
+        })
+    </script>
+</th:block>
+</body>
+</html>

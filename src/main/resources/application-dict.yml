@@ -1,0 +1,6 @@
+dict:
+  items:
+    - type: user
+      sql: "select username, name from sys_user order by id asc"
+    - type: grade
+      map: {g1: "一年级", g2: "二年级"}
